@@ -40,8 +40,8 @@ public:
         
         for (int i = 1; i < nums.size(); i++) 
         { 
-                currMax = max(nums[i], currMax + nums[i]); 
-                maxSoFar = max(maxSoFar, currMax); 
+            currMax = max(nums[i], currMax + nums[i]); 
+            maxSoFar = max(maxSoFar, currMax); 
         } 
         return maxSoFar;
     }
