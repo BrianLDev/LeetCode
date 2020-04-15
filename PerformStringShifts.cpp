@@ -47,6 +47,42 @@ using namespace std;
 class Solution {
 public:
     string stringShift(string s, vector<vector<int> > &shift) {
+
+        int shiftCount = shift.size();
+        vector<int> currShift;
+        int direction, qty;
+
+        for (int i=0; i < shiftCount; i++) {
+            currShift = shift.front();
+            shift.erase(shift.begin() );
+
+            direction = currShift.front();
+            qty = currShift.back();
+
+            char letter;
+            if (direction == 0) {
+                // shift left
+                cout << "Shifting left by " << qty << endl;
+                for (int i=0; i<qty; i++) {
+                    s += s[0];
+                    s.erase(s.begin() );
+                }
+            }
+            else if (direction == 1) {
+                // shift right
+                cout << "Shifting right by " << qty << endl;
+                string tempStr;
+                for (int i=0; i<qty; i++) {
+                    tempStr = s.back();
+                    s.insert(0, tempStr);
+                    s.pop_back();
+                }            
+            }
+            else {
+                cout << "error: incorrect direction" << endl;
+                return "error";
+            }
+        }
         
         return s;
     }
@@ -56,7 +92,8 @@ int main() {
 
     Solution s = Solution();
     
-    string input = "abc";
+    string input = "abcdefg";
+    cout << input << endl;
 
     vector<vector<int> > shiftVec;
     vector<int> shiftTemp;
@@ -66,8 +103,6 @@ int main() {
     shiftTemp.push_back(1);
     shiftTemp.push_back(2);
     shiftVec.push_back(shiftTemp);
-    // int n = sizeof(StonesArr) / sizeof(StonesArr[0]);
-    // vector<int> stones(StonesArr, StonesArr + n );    
     
     cout << s.stringShift(input, shiftVec);
 
