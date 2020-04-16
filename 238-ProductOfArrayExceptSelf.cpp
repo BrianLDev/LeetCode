@@ -16,23 +16,45 @@ Could you solve it with constant space complexity? (The output array does not co
 
 #include <iostream>
 #include <vector>
+#include <algorithm>    // for transform
 
 using namespace std;
 
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        
+        vector<int> numsProduct = nums;
+
+        int count = nums.size();
+        for (int i=0; i<count; i++) {
+            transform(nums.begin(), nums.end(), numsProduct.begin(), std::multiplies<int>() );
+            
+            
+        }
+
+        return numsProduct;
     }
+};
+
+void printVector(vector<int> vec) {
+    for (int n : vec) {
+        cout << n << " ";
+    }
+    cout << endl;
 };
 
 int main() {
 
     Solution s = Solution();
     
-    vector<int> numbers;
-    
-    cout << s.productExceptSelf(numbers);
+    int numArr[] = {1, 2, 3, 4};
+    int n = sizeof(numArr) / sizeof(numArr[0]);
+    vector<int> numbers(numArr, numArr + n);    // initializes vector and sets equal to the array
+    printVector(numbers);   
+
+    vector<int> newNumbers = s.productExceptSelf(numbers);
+    printVector(newNumbers);
 
     return 0;
 }
+
