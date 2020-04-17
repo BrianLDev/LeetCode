@@ -20,28 +20,44 @@ Could you solve it with constant space complexity? (The output array does not co
 
 using namespace std;
 
-class Solution {
-public:
-    vector<int> productExceptSelf(vector<int>& nums) {
-        vector<int> numsProduct = nums;
-
-        int count = nums.size();
-        for (int i=0; i<count; i++) {
-            transform(nums.begin(), nums.end(), numsProduct.begin(), std::multiplies<int>() );
-            
-            
-        }
-
-        return numsProduct;
-    }
-};
-
 void printVector(vector<int> vec) {
     for (int n : vec) {
         cout << n << " ";
     }
     cout << endl;
 };
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        // create 2 vecors that hold cumulative multiples of left and right side for each digit. Fill with 1's
+        int sizeNums = nums.size();
+        vector<int> left(sizeNums, 1);
+        vector<int> right(sizeNums, 1);
+        vector<int> numsProduct(sizeNums, 1);
+
+        for (int i=1; i<sizeNums; i++) {
+            // left side (start at front)
+            left[i] = left[i-1] * nums[i-1];
+        }
+        cout << "Left side: " << endl;
+        printVector(left);
+
+        for (int i=sizeNums-2; i>=0; i--) {
+            // right side (start at back)
+            right[i] = right[i+1] * nums[i+1];
+        }
+        cout << "Right side: " << endl;
+        printVector(right);
+        
+        for (int i=0; i<sizeNums; i++) {
+            // now multiply left and right together to get the answer
+            numsProduct[i] = left[i] * right[i];
+        }
+        return numsProduct;
+    }
+};
+
 
 int main() {
 
